@@ -1,10 +1,14 @@
 from flask import Flask
+from dotenv import load_dotenv; load_dotenv()
+import os
 
-app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+HOST = os.getenv('HOST')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
 
 def create_app():
+    app = Flask(__name__)
+    @app.route("/")
+    def hello_world():
+        return f"<p>Hello, welcome to {HOST}</p>"
     return app
