@@ -10,7 +10,7 @@ setup:
 	python3 -m poetry install
 
 dev:
-	python3 -m poetry run flask --debug run
+	python3 -m poetry run flask --debug --app 'app.app:create_app' run 
 
 prod:
-	python3 -m poetry run waitress-serve --port 8080 --call 'app:create_app' 
+	python3 -m poetry run waitress-serve --port 8080 --call 'app.app:create_app' 
