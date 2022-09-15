@@ -12,7 +12,7 @@ def create_app():
 
     app.config['ADMIN_PASSWORD'] = os.getenv('ADMIN_PASSWORD')
     
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.getenv("DATABASE")}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'{os.getenv("DATABASE")}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
