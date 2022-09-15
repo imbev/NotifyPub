@@ -19,6 +19,7 @@ Flask-Login = "^0.6.2"
 
 [tool.poetry.group.dev.dependencies]
 poetry = "^1.2.0"
+pytest-flask = "^1.2.0"
 
 [build-system]
 requires = ["poetry-core"]
