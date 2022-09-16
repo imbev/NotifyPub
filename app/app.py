@@ -2,8 +2,8 @@ from flask import Flask
 from dotenv import load_dotenv; load_dotenv()
 import os
 
-from app.website import website_blueprint
-from app.login import login_manager, login_blueprint
+from app.website import website
+from app.login import login_manager, login
 
 def create_app():
     app = Flask(__name__)
@@ -21,7 +21,7 @@ def create_app():
     login_manager.init_app(app)
     
 
-    app.register_blueprint(website_blueprint)
-    app.register_blueprint(login_blueprint)
+    app.register_blueprint(website)
+    app.register_blueprint(login)
 
     return app

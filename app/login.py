@@ -26,7 +26,7 @@ class User:
     def get(self, userid):
         return self
 
-login_blueprint = Blueprint('login_blueprint', __name__)
+login = Blueprint('login', __name__)
 login_manager = LoginManager()
 
 @login_manager.user_loader
@@ -35,10 +35,10 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    return redirect(url_for('login_blueprint.login'))
+    return redirect(url_for('login.login_'))
 
-@login_blueprint.route("/login", methods=['GET', 'POST'])
-def login():
+@login.route("/login", methods=['GET', 'POST'])
+def login_():
     form = LoginForm()
     error_message = ''
     if form.validate_on_submit():
@@ -46,12 +46,12 @@ def login():
         user.password = form.data['password']
         if user.is_authenticated():
             login_user(user)
-            return flask.redirect(flask.url_for('website_blueprint.index'))
+            return flask.redirect(flask.url_for('website.index'))
         error_message = 'Incorrect Password'
     return render_template('login.html', config=current_app.config['WEBSITE'], form=form, error_message=error_message)
 
-@login_blueprint.route("/logout")
+@login.route("/logout")
 def logout():
     user = User.get(User(), 'admin')
     logout_user()
-    return flask.redirect(flask.url_for('website_blueprint.index'))
+    return flask.redirect(flask.url_for('website.index'))
