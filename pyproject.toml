@@ -19,7 +19,6 @@ SQLAlchemy = "^1.4.41"
 
 [tool.poetry.group.dev.dependencies]
 poetry = "^1.2.0"
-pytest-flask = "^1.2.0"
 
 [build-system]
 requires = ["poetry-core"]

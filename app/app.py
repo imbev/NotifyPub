@@ -4,7 +4,6 @@ import os
 
 from app.website import website
 from app.login import login_manager, login
-from app.api import api
 
 def create_app():
     app = Flask(__name__)
@@ -23,6 +22,5 @@ def create_app():
 
     app.register_blueprint(website)
     app.register_blueprint(login)
-    app.register_blueprint(api, url_prefix='/api')
 
     return app

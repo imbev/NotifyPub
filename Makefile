@@ -10,9 +10,6 @@ setup:
 	python3 -m pip install poetry
 	python3 -m poetry install
 
-test:
-	python3 -m poetry run pytest
-
 dev:
 	python3 -m poetry run flask --debug --app 'app.app:create_app' run 
 
