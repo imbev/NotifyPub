@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{{ super() }}{% endblock %}
+
+{% block body %}
+{{ super() }}
+
+<br>
+<div class="container">
+  <div class="level">
+    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="#publish">
+      <p class="subtitle has-text-light">Publish new notification!</p>
+    </a>
+</div>
+<div class="columns">
+  <div class="column">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">Published: {{ published_count }}</p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          Most recent:
+          <br>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        </div>
+      </div>
+    </div>
+    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="#publish">
+      <p class="subtitle has-text-light">Manage published notifications</p>
+    </a>
+  </div>
+  <div class="column">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">Tokens: {{ tokens_count }}</p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+            Most recent:
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+        </div>
+      </div>
+    </div>
+    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="#publish">
+      <p class="subtitle has-text-light">Manage access tokens</p>
+    </a>
+  </div>
+</div>
+{% endblock %}
