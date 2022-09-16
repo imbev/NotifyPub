@@ -4,16 +4,13 @@ import os
 
 from app.website import website_blueprint
 from app.login import login_manager, login_blueprint
-from app.model import db
-
 
 def create_app():
     app = Flask(__name__)
 
     app.config['ADMIN_PASSWORD'] = os.getenv('ADMIN_PASSWORD')
     
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'{os.getenv("DATABASE")}'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE")
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     app.config['WEBSITE'] = {
@@ -21,7 +18,6 @@ def create_app():
         'title': os.getenv('TITLE')
     }
 
-    db.init_app(app)
     login_manager.init_app(app)
     
 

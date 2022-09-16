@@ -1,20 +1,20 @@
-from dataclasses import dataclass
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Table, Column, Integer, String, MetaData, DateTime, Text
+from sqlalchemy.sql import func
 
-db = SQLAlchemy()
+meta = MetaData()
 
-@dataclass
-class Message(db.Model):
-    __tablename__ = 'message'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
-    summary = db.Column(db.Text)
-    content = db.Column(db.Text)
-    time_created = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
+messages = Table(
+    'messages', meta,
+    Column('id', Integer, primary_key=True),
+    Column('title', String),
+    Column('summary', Text),
+    Column('content', Text),
+    Column('time_created', DateTime(timezone=True), server_default=func.now())
+)
 
-@dataclass
-class Token(db.Model):
-    __tablename__ = 'token'
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String)
-    token = db.Column(db.String)
+tokens = Table(
+    'tokens', meta,
+    Column('id', Integer, primary_key=True),
+    Column('description', String),
+    Column('token', String)
+)
