@@ -11,7 +11,7 @@ setup:
 	python3 -m poetry install
 
 test:
-	cd tests && python3 -m poetry run pytest
+	python3 -m poetry run pytest
 
 dev:
 	python3 -m poetry run flask --debug --app 'app.app:create_app' run 
