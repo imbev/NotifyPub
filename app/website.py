@@ -1,7 +1,11 @@
 import os
-from sqlalchemy import create_engine, select, desc
+from sqlalchemy import create_engine, select, desc, insert
+import flask
 from flask import Blueprint, current_app, render_template, redirect, url_for
 from flask_login import login_required
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired
 from app.login import login_manager
 from app.model import meta, messages, tokens
 
@@ -40,3 +44,27 @@ def dashboard():
          recent_published=recent_published,
          recent_token=recent_token
     )
+
+class NotificationForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    summary = TextAreaField('summary', validators=[DataRequired()])
+    content = TextAreaField('content', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+@website.route('/new_notification', methods=['GET', 'POST'])
+@login_required
+def new_notification():
+    form = NotificationForm()
+    error_message = ""
+    if form.validate_on_submit():
+        title = form.data['title']
+        summary = form.data['summary']
+        content = form.data['content']
+        with engine.begin() as conn:
+            statement = insert(messages).values(title=title, summary=summary, content=content)
+            result = conn.execute(statement.compile())
+        return flask.redirect(flask.url_for('website.index'))
+    return render_template(
+        'new_notification.html', 
+        config=current_app.config['WEBSITE'],
+        form=form,
+        error_message=error_message)

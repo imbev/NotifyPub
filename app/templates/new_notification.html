@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Publish{{ super() }}{% endblock %}
+
+{% block body %}
+{{ super() }}
+<section class="section">
+    <div class="container card">
+      <h1 class="title card-header-title">
+        Publish
+      </h1>
+      <form action="{{ url_for('website.new_notification') }}" method="post" class="card-content">
+        {{ form.csrf_token }}
+        <div class="field">
+          <label class="label">Title</label>
+          <input class="input" name="title" id="title" placeholder="Lorem Ipsum" required>
+          <label class="label">Summary</label>
+          <input class="input" name="summary" id="summary" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." required>
+          <label class="label">Content</label>
+          <textarea class="textarea" name="content" id="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus nec feugiat in fermentum posuere urna nec tincidunt. Rhoncus aenean vel elit scelerisque mauris pellentesque. Proin sed libero enim sed faucibus. Turpis massa tincidunt dui ut ornare lectus sit amet. Mattis enim ut tellus elementum sagittis vitae. In eu mi bibendum neque egestas." required></textarea>
+          {% if error_message %}
+          <br>
+          <article class="message is-small is-danger">
+            <div class="message-body">
+              {{ error_message }}
+            </div>
+          </article>
+        {% endif %}
+        </div>
+        <div class="field">
+          <p class="control">
+            <input type="submit" class="button is-warning" value="Submit">
+          </p>
+        </div>
+      </form> 
+    </div>
+  </section>
+{% endblock %}
