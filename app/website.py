@@ -26,21 +26,15 @@ def index():
 @website.route('/dashboard')
 @login_required
 def dashboard():
-    published_count = 0
-    tokens_count = 0
-    try:
-        recent_published = conn.execute(select(messages).order_by(desc(messages.c.time_created))).all()[0]
-    except IndexError:
-        recent_published = ""
-    try:
-        recent_token = conn.execute(select(tokens).order_by(desc(tokens.c.time_created))).all()[0]
-    except IndexError:
-        recent_token = ""
+    published = conn.execute(select(messages).order_by(desc(messages.c.time_created))).all()
+    tokens_created = conn.execute(select(tokens).order_by(desc(tokens.c.time_created))).all()
+    recent_published = published[0] if published else ""
+    recent_token = tokens_created[0] if tokens_created else ""
     return render_template(
         'dashboard.html',
          config=current_app.config['WEBSITE'], 
-         published_count=published_count, 
-         tokens_count=tokens_count,
+         published_count=len(published), 
+         tokens_count=len(tokens_created),
          recent_published=recent_published,
          recent_token=recent_token
     )
