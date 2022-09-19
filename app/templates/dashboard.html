@@ -20,9 +20,13 @@
       </header>
       <div class="card-content">
         <div class="content">
-          Most recent:
-          <br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+          {% if recent_published %}
+          Most recent:<br>
+          <p class="has-text-weight-semibold is-italic">{{ recent_published[1] }}</p>
+          {{ recent_published[2] }}
+          {% else %}
+          <p>No notifications published yet.</p>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -37,9 +41,12 @@
       </header>
       <div class="card-content">
         <div class="content">
-            Most recent:
-            <br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+          {% if recent_token %}
+          Most recent:<br>
+          {{ recent_token }}
+          {% else %}
+          <p>No tokens created yet.</p>
+          {% endif %}
         </div>
       </div>
     </div>
