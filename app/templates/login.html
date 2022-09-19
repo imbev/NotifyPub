@@ -9,7 +9,7 @@
       <h1 class="title card-header-title">
         Login
       </h1>
-      <form action="/login" method="post" class="card-content">
+      <form action="{{ url_for('login.login_') }}" method="post" class="card-content">
         {{ form.csrf_token }}
         <div class="field">
           <label class="label">Password</label>
