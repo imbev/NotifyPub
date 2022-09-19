@@ -10,12 +10,10 @@
   </head>
   <body>
     {% block body %}
-    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="{{ url_for('website.index') }}">
-          <h1 class="title">
-            {{config['title']}}
-          </h1>
+          <h1 class="title has-text-light">{{config['title']}}</h1>
         </a>
       </div>
     
