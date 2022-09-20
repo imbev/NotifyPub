@@ -58,3 +58,32 @@ def new_notification():
         config=current_app.config['WEBSITE'],
         form=form,
         error_message=error_message)
+
+class TokenForm(FlaskForm):
+    description = StringField('description', validators=[DataRequired()])
+    token = StringField('token', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+@website.route('/manage_tokens', methods=['GET', 'POST'])
+@login_required
+def manage_tokens():
+    form = TokenForm()
+    error_message = ""
+    with engine.begin() as conn:
+        tokens_ = conn.execute(select(tokens).order_by(desc(tokens.c.time_created))).all()
+    if form.validate_on_submit():
+        description = form.data['description']
+        token = form.data['token']
+        with engine.begin() as conn:
+            statement = insert(tokens).values(description=description, token=token)
+            result = conn.execute(statement.compile())
+        return flask.redirect(flask.url_for('website.index'))
+    return render_template(
+        'manage_tokens.html', 
+        config=current_app.config['WEBSITE'],
+        form=form,
+        tokens=tokens_,
+        error_message=error_message)
+
+@website.route('/share', methods=['GET', 'POST'])
+def share():
+    return ''

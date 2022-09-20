@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Share{{ super() }}{% endblock %}
+
+{% block body %}
+{{ super() }}
+<section class="section">
+    <div class="container card">
+      <h1 class="title card-header-title">
+        Create Access Token
+      </h1>
+      <form action="{{ url_for('website.manage_tokens') }}" method="post" class="card-content">
+        {{ form.csrf_token }}
+        <div class="field">
+          <label class="label">Description</label>
+          <input class="input" name="description" id="description" placeholder="Lorem Ipsum" required>
+          <label class="label">Token</label>
+          <input class="input" name="token" id="token" placeholder="lorem_ipsum5" required>
+          {% if error_message %}
+          <br>
+          <article class="message is-small is-danger">
+            <div class="message-body">
+              {{ error_message }}
+            </div>
+          </article>
+        {% endif %}
+        </div>
+        <div class="field">
+          <p class="control">
+            <input type="submit" class="button is-warning" value="Submit">
+          </p>
+        </div>
+      </form> 
+    </div>
+  </section>
+<div class="container">
+{% for token in tokens %}
+<article class="message">
+  <div class="message-header">
+    <p>{{ token[1] }}</p>
+    <a href="{{ url_for('website.share', token=token[2]) }}"><span class="tag is-link is-light">Share</span></a>
+  </div>
+  <div class="message-body">
+    <p class="control has-icons-right">
+      <input class="input" type="text" id="token-{{ token[2] }}" value="{{ config['base_url'] }}{{ url_for('website.share', token=token[2]) }}" readonly>
+      <span class="icon is-small is-right"><ion-icon name="copy"></ion-icon></span>
+    </p>
+  </div>
+</article>
+<script>
+  document.getElementById("token-{{ token[2] }}").onclick = function() {
+    this.select();
+    document.execCommand('copy');
+}
+</script>
+{% endfor %}
+</div>
+{% endblock %}

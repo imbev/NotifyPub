@@ -43,14 +43,15 @@
         <div class="content">
           {% if recent_token %}
           Most recent:<br>
-          {{ recent_token }}
+          {{ recent_token[1] }}<br>
+          {{ url_for('website.share', token=recent_token[2]) }}
           {% else %}
           <p>No tokens created yet.</p>
           {% endif %}
         </div>
       </div>
     </div>
-    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="#publish">
+    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="{{ url_for('website.manage_tokens') }}">
       <p class="subtitle has-text-light">Manage access tokens</p>
     </a>
   </div>
