@@ -52,7 +52,7 @@ def new_notification():
         with engine.begin() as conn:
             statement = insert(messages).values(title=title, summary=summary, content=content)
             result = conn.execute(statement.compile())
-        return flask.redirect(flask.url_for('website.index'))
+        return flask.redirect(flask.url_for('website.dashboard'))
     return render_template(
         'new_notification.html', 
         config=current_app.config['WEBSITE'],
@@ -76,7 +76,7 @@ def manage_tokens():
         with engine.begin() as conn:
             statement = insert(tokens).values(description=description, token=token)
             result = conn.execute(statement.compile())
-        return flask.redirect(flask.url_for('website.index'))
+        return flask.redirect(flask.url_for('website.dashboard'))
     return render_template(
         'manage_tokens.html', 
         config=current_app.config['WEBSITE'],
