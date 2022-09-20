@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import create_engine, select, desc, insert
 import flask
-from flask import Blueprint, current_app, render_template, redirect, url_for
+from flask import Blueprint, current_app, render_template, redirect, url_for, make_response, request
 from flask_login import login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
@@ -86,4 +86,15 @@ def manage_tokens():
 
 @website.route('/share', methods=['GET', 'POST'])
 def share():
-    return ''
+    token = request.args.get('token')
+    matched = False
+    with engine.begin() as conn:
+        if not conn.execute(select(tokens).filter_by(token=token)).first():
+            return 'Invalid Token', 401
+
+    with engine.begin() as conn:
+        published = conn.execute(select(messages).order_by(desc(messages.c.time_created))).all()
+    template = render_template('share.xml', config=current_app.config['WEBSITE'], notifications=published, token=token)
+    resp = make_response(template)
+    resp.headers['Content-Type'] = 'application/xml'
+    return resp

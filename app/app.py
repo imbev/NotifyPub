@@ -1,5 +1,6 @@
 from flask import Flask
 from dotenv import load_dotenv; load_dotenv()
+import datetime
 import os
 
 from app.website import website
@@ -22,5 +23,9 @@ def create_app():
 
     app.register_blueprint(website)
     app.register_blueprint(login)
+
+    def format_date(date):
+        return f"{date.strftime('%a, %d %b %Y %H:%M:%S')} GMT"
+    app.jinja_env.globals.update(format_date=format_date)
 
     return app

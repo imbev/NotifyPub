@@ -42,7 +42,7 @@
   </div>
   <div class="message-body">
     <p class="control has-icons-right">
-      <input class="input" type="text" id="token-{{ token[2] }}" value="{{ config['base_url'] }}{{ url_for('website.share', token=token[2]) }}" readonly>
+      <input class="input" type="text" id="token-{{ token[2] }}" value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=token[2]) }}" readonly>
       <span class="icon is-small is-right"><ion-icon name="copy"></ion-icon></span>
     </p>
   </div>
