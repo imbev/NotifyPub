@@ -46,7 +46,7 @@ def login_():
         user.password = form.data['password']
         if user.is_authenticated():
             login_user(user)
-            return flask.redirect(flask.url_for('website.index'))
+            return flask.redirect(flask.url_for('website.dashboard'))
         error_message = 'Incorrect Password'
     return render_template('login.html', config=current_app.config['WEBSITE'], form=form, error_message=error_message)
 
