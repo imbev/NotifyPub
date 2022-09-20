@@ -43,8 +43,11 @@
         <div class="content">
           {% if recent_token %}
           Most recent:<br>
-          {{ recent_token[1] }}<br>
-          {{ url_for('website.share', token=recent_token[2]) }}
+          <p class="has-text-weight-semibold is-italic">{{ recent_token[1] }}</p>
+          <p class="control has-icons-right">
+            <input class="input" type="text" id="token-{{ recent_token[2] }}" value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=recent_token[2]) }}" readonly>
+            <span class="icon is-small is-right"><ion-icon name="copy"></ion-icon></span>
+          </p>
           {% else %}
           <p>No tokens created yet.</p>
           {% endif %}
