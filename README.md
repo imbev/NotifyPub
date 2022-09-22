@@ -31,4 +31,10 @@
    DATABASE=sqlite:////tmp/notifypub.sqlite
    ```
 
+## Usage
+- Run development server
+  - `make dev`
+- Run production server
+  - `make prod`
+
 Copyright (c) Isaac Beverly 2022, AGPL-3.0-only
