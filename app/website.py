@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import create_engine, select, desc, insert
+from sqlalchemy import create_engine, select, desc, insert, delete
 import flask
 from flask import Blueprint, current_app, render_template, redirect, url_for, make_response, request
 from flask_login import login_required
@@ -67,7 +67,6 @@ class TokenForm(FlaskForm):
 @login_required
 def manage_tokens():
     form = TokenForm()
-    error_message = ""
     with engine.begin() as conn:
         tokens_ = conn.execute(select(tokens).order_by(desc(tokens.c.time_created))).all()
     if form.validate_on_submit():
@@ -82,7 +81,9 @@ def manage_tokens():
         config=current_app.config['WEBSITE'],
         form=form,
         tokens=tokens_,
-        error_message=error_message)
+        form_error_message=request.args.get('form_error_message'),
+        error_message=request.args.get('error_message'),
+        success_message=request.args.get('success_message'))
 
 @website.route('/share', methods=['GET', 'POST'])
 def share():
@@ -98,3 +99,15 @@ def share():
     resp = make_response(template)
     resp.headers['Content-Type'] = 'application/xml'
     return resp
+
+@website.route('/delete')
+@login_required
+def delete_():
+    token_id = request.args.get('token_id')
+    with engine.begin() as conn:
+        if not conn.execute(select(tokens).filter_by(id=token_id)).first():
+            return redirect(url_for('website.manage_tokens', error_message=f'Invalid Token id: {token_id}'))
+        else:
+            token_desc = conn.execute(select(tokens).filter_by(id=token_id)).first()[2]
+            conn.execute(delete(tokens).where(tokens.c.id == token_id))
+            return redirect(url_for('website.manage_tokens', success_message=f"Successfully deleted token \"{token_desc}\"."))
