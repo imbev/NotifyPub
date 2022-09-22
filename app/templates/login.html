@@ -5,35 +5,35 @@
 {% block body %}
 {{ super() }}
 <section class="section">
-    <div class="container card">
-      <h1 class="title card-header-title">
-        Login
-      </h1>
-      <form action="{{ url_for('login.login_') }}" method="post" class="card-content">
-        {{ form.csrf_token }}
-        <div class="field">
-          <label class="label">Password</label>
-          <p class="control has-icons-left">
-            <input class="input" type="password" placeholder="Password" name="password" required>
-            <span class="icon is-small is-left">
-              <ion-icon name="lock-closed-outline"></ion-icon>
-            </span>
-          </p>
-          {% if error_message %}
-          <br>
-          <article class="message is-small is-danger">
-            <div class="message-body">
-              {{ error_message }}
-            </div>
-          </article>
+  <div class="container card">
+    <h1 class="title card-header-title">
+      Login
+    </h1>
+    <form action="{{ url_for('login.login_') }}" method="post" class="card-content">
+      {{ form.csrf_token }}
+      <div class="field">
+        <label class="label">Password</label>
+        <p class="control has-icons-left">
+          <input class="input" type="password" placeholder="Password" name="password" required>
+          <span class="icon is-small is-left">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </span>
+        </p>
+        {% if error_message %}
+        <br>
+        <article class="message is-small is-danger">
+          <div class="message-body">
+            {{ error_message }}
+          </div>
+        </article>
         {% endif %}
-        </div>
-        <div class="field">
-          <p class="control">
-            <input type="submit" class="button is-success" value="Login">
-          </p>
-        </div>
-      </form> 
-    </div>
-  </section>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input type="submit" class="button is-success" value="Login">
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
 {% endblock %}

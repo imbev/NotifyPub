@@ -5,34 +5,34 @@
 {% block body %}
 {{ super() }}
 <section class="section">
-    <div class="container card">
-      <h1 class="title card-header-title">
-        Create Access Token
-      </h1>
-      <form action="{{ url_for('website.manage_tokens') }}" method="post" class="card-content">
-        {{ form.csrf_token }}
-        <div class="field">
-          <label class="label">Description</label>
-          <input class="input" name="description" id="description" placeholder="Lorem Ipsum" required>
-          <label class="label">Token</label>
-          <input class="input" name="token" id="token" placeholder="lorem_ipsum5" required>
-          {% if form_error_message %}
-          <br>
-          <article class="message is-small is-danger">
-            <div class="message-body">
-              {{ form_error_message }}
-            </div>
-          </article>
+  <div class="container card">
+    <h1 class="title card-header-title">
+      Create Access Token
+    </h1>
+    <form action="{{ url_for('website.manage_tokens') }}" method="post" class="card-content">
+      {{ form.csrf_token }}
+      <div class="field">
+        <label class="label">Description</label>
+        <input class="input" name="description" id="description" placeholder="Lorem Ipsum" required>
+        <label class="label">Token</label>
+        <input class="input" name="token" id="token" placeholder="lorem_ipsum5" required>
+        {% if form_error_message %}
+        <br>
+        <article class="message is-small is-danger">
+          <div class="message-body">
+            {{ form_error_message }}
+          </div>
+        </article>
         {% endif %}
-        </div>
-        <div class="field">
-          <p class="control">
-            <input type="submit" class="button is-warning" value="Submit">
-          </p>
-        </div>
-      </form> 
-    </div>
-  </section>
+      </div>
+      <div class="field">
+        <p class="control">
+          <input type="submit" class="button is-warning" value="Submit">
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
 <div class="container">
   {% if success_message %}
   <article class="message is-success">
@@ -48,55 +48,62 @@
     </div>
   </article>
   {% endif %}
-{% for token in tokens %}
-<article class="message">
-  <div class="message-header">
-    <p>{{ token[1] }}</p>
-    <a href="{{ url_for('website.delete_token', token_id=token[0]) }}"><button class="delete" aria-label="delete"></button></a>
+  {% for token in tokens %}
+  <article class="message">
+    <div class="message-header">
+      <p>{{ token[1] }}</p>
+      <a href="{{ url_for('website.delete_token', token_id=token[0]) }}"><button class="delete"
+          aria-label="delete"></button></a>
+    </div>
+    <div class="message-body">
+      <p class="control has-icons-right">
+        <input class="input" type="text" id="token-{{ token[2] }}"
+          value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=token[2]) }}" readonly>
+        <span class="icon is-small is-right">
+          <ion-icon name="logo-rss"></ion-icon>
+        </span>
+      </p>
+    </div>
+  </article>
+  {% endfor %}
+  <div>
+    <p class="has-text-centered">Use with any of the following on Web/iOS/Android:</p>
+    <br>
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div class="box">
+          <a href="https://feedly.com/">
+            <p class="subtitle">Feedly</p>
+            <figure class="image is-64x64 container">
+              <img
+                src="https://play-lh.googleusercontent.com/NNS6OGOetsyYa0hhXTItJ7aCNljIKLD8uLibF5qdEBq_m7kHhK091KXZBVk7JzrfPw" />
+            </figure>
+          </a>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div class="box">
+          <a href="https://www.newsblur.com/">
+            <p class="subtitle">NewsBlur</p>
+            <figure class="image is-64x64 container">
+              <img
+                src="https://play-lh.googleusercontent.com/S0AYLN1BNNpXjlN5MeYtK-73d4hPkkM5N6EuhWaIGAcVhC41JXyF9N8Lh0F4rT7A_ts1=w240-h480-rw" />
+            </figure>
+          </a>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="box">
+          <a href="https://www.inoreader.com/">
+            <p class="subtitle">Inoreader</p>
+            <figure class="image is-64x64 container">
+              <img
+                src="https://play-lh.googleusercontent.com/mPC_o8nhXrXE22isxxVwNNuyiaKskjTRcbGKZEwqm6xlyXkfkfcBH1XDVpMJXWFG5w" />
+            </figure>
+          </a>
+        </div>
+      </div>
+    </nav>
   </div>
-  <div class="message-body">
-    <p class="control has-icons-right">
-      <input class="input" type="text" id="token-{{ token[2] }}" value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=token[2]) }}" readonly>
-      <span class="icon is-small is-right"><ion-icon name="logo-rss"></ion-icon></span>
-    </p>
-  </div>
-</article>
-{% endfor %}
-<div>
-  <p class="has-text-centered">Use with any of the following on Web/iOS/Android:</p>
-  <br>
-  <nav class="level">
-    <div class="level-item has-text-centered">
-      <div class="box">
-        <a href="https://feedly.com/">
-        <p class="subtitle">Feedly</p>
-        <figure class="image is-64x64 container">
-          <img src="https://play-lh.googleusercontent.com/NNS6OGOetsyYa0hhXTItJ7aCNljIKLD8uLibF5qdEBq_m7kHhK091KXZBVk7JzrfPw" />
-        </figure>
-      </a>
-      </div>
-    </div>
-    <div class="level-item has-text-centered">
-      <div class="box">
-        <a href="https://www.newsblur.com/">
-        <p class="subtitle">NewsBlur</p>
-        <figure class="image is-64x64 container">
-          <img src="https://play-lh.googleusercontent.com/S0AYLN1BNNpXjlN5MeYtK-73d4hPkkM5N6EuhWaIGAcVhC41JXyF9N8Lh0F4rT7A_ts1=w240-h480-rw" />
-        </figure>
-      </a>
-      </div>
-    </div>
-    <div class="level-item">
-      <div class="box">
-        <a href="https://www.inoreader.com/">
-        <p class="subtitle">Inoreader</p>
-        <figure class="image is-64x64 container">
-          <img src="https://play-lh.googleusercontent.com/mPC_o8nhXrXE22isxxVwNNuyiaKskjTRcbGKZEwqm6xlyXkfkfcBH1XDVpMJXWFG5w" />
-        </figure>
-      </a>
-      </div>
-    </div>
-  </nav>
-</div>
 </div>
 {% endblock %}

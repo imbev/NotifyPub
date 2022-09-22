@@ -5,56 +5,61 @@
 {% block body %}
 {{ super() }}
 <section class="section">
-    <div class="container card">
-      <h1 class="title card-header-title">
-        Publish
-      </h1>
-      <form action="{{ url_for('website.manage_notifications') }}" method="post" class="card-content">
-        {{ form.csrf_token }}
-        <div class="field">
-          <label class="label">Title</label>
-          <input class="input" name="title" id="title" placeholder="Lorem Ipsum" required>
-          <label class="label">Summary</label>
-          <input class="input" name="summary" id="summary" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." required>
-          <label class="label">Content</label>
-          <textarea class="textarea" name="content" id="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus nec feugiat in fermentum posuere urna nec tincidunt. Rhoncus aenean vel elit scelerisque mauris pellentesque. Proin sed libero enim sed faucibus. Turpis massa tincidunt dui ut ornare lectus sit amet. Mattis enim ut tellus elementum sagittis vitae. In eu mi bibendum neque egestas." required></textarea>
-          {% if form_error_message %}
-          <br>
-          <article class="message is-small is-danger">
-            <div class="message-body">
-              {{ form_error_message }}
-            </div>
-          </article>
+  <div class="container card">
+    <h1 class="title card-header-title">
+      Publish
+    </h1>
+    <form action="{{ url_for('website.manage_notifications') }}" method="post" class="card-content">
+      {{ form.csrf_token }}
+      <div class="field">
+        <label class="label">Title</label>
+        <input class="input" name="title" id="title" placeholder="Lorem Ipsum" required>
+        <label class="label">Summary</label>
+        <input class="input" name="summary" id="summary"
+          placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          required>
+        <label class="label">Content</label>
+        <textarea class="textarea" name="content" id="content"
+          placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus nec feugiat in fermentum posuere urna nec tincidunt. Rhoncus aenean vel elit scelerisque mauris pellentesque. Proin sed libero enim sed faucibus. Turpis massa tincidunt dui ut ornare lectus sit amet. Mattis enim ut tellus elementum sagittis vitae. In eu mi bibendum neque egestas."
+          required></textarea>
+        {% if form_error_message %}
+        <br>
+        <article class="message is-small is-danger">
+          <div class="message-body">
+            {{ form_error_message }}
+          </div>
+        </article>
         {% endif %}
-        </div>
-        <div class="field">
-          <p class="control">
-            <input type="submit" class="button is-warning" value="Submit">
-          </p>
-        </div>
-      </form> 
+      </div>
+      <div class="field">
+        <p class="control">
+          <input type="submit" class="button is-warning" value="Submit">
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+<div class="container">
+  {% if success_message %}
+  <article class="message is-success">
+    <div class="message-body">
+      {{ success_message }}
     </div>
-  </section>
-  <div class="container">
-    {% if success_message %}
-    <article class="message is-success">
-      <div class="message-body">
-        {{ success_message }}
-      </div>
-    </article>
-    {% endif %}
-    {% if error_message %}
-    <article class="message is-danger">
-      <div class="message-body">
-        {{ error_message }}
-      </div>
-    </article>
-    {% endif %}
+  </article>
+  {% endif %}
+  {% if error_message %}
+  <article class="message is-danger">
+    <div class="message-body">
+      {{ error_message }}
+    </div>
+  </article>
+  {% endif %}
   {% for notification in notifications %}
   <article class="message">
     <div class="message-header">
       <p>{{ notification[1] }}</p>
-      <a href="{{ url_for('website.delete_notification', notification_id=notification[0]) }}"><button class="delete" aria-label="delete"></button></a>
+      <a href="{{ url_for('website.delete_notification', notification_id=notification[0]) }}"><button class="delete"
+          aria-label="delete"></button></a>
     </div>
     <div class="message-body">
       <p>{{ notification[2] }}</p>
@@ -62,5 +67,5 @@
     </div>
   </article>
   {% endfor %}
-  </div>
+</div>
 {% endblock %}

@@ -8,55 +8,61 @@
 <br>
 <div class="container">
   <div class="level">
-    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="{{ url_for('website.manage_notifications') }}">
+    <a class="tile container button is-large is-fullwidth is-hoverable is-info"
+      href="{{ url_for('website.manage_notifications') }}">
       <p class="subtitle has-text-light">Publish new notification!</p>
     </a>
-</div>
-<div class="columns">
-  <div class="column">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Published: {{ published_count }}</p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          {% if recent_published %}
-          Most recent:<br>
-          <p class="has-text-weight-semibold is-italic">{{ recent_published[1] }}</p>
-          {{ recent_published[2] }}
-          {% else %}
-          <p>No notifications published yet.</p>
-          {% endif %}
+  </div>
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">Published: {{ published_count }}</p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            {% if recent_published %}
+            Most recent:<br>
+            <p class="has-text-weight-semibold is-italic">{{ recent_published[1] }}</p>
+            {{ recent_published[2] }}
+            {% else %}
+            <p>No notifications published yet.</p>
+            {% endif %}
+          </div>
         </div>
       </div>
+      <a class="tile container button is-large is-fullwidth is-hoverable is-info"
+        href="{{ url_for('website.manage_notifications') }}">
+        <p class="subtitle has-text-light">Manage published notifications</p>
+      </a>
     </div>
-    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="{{ url_for('website.manage_notifications') }}">
-      <p class="subtitle has-text-light">Manage published notifications</p>
-    </a>
-  </div>
-  <div class="column">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Tokens: {{ tokens_count }}</p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          {% if recent_token %}
-          Most recent:<br>
-          <p class="has-text-weight-semibold is-italic">{{ recent_token[1] }}</p>
-          <p class="control has-icons-right">
-            <input class="input" type="text" id="token-{{ recent_token[2] }}" value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=recent_token[2]) }}" readonly>
-            <span class="icon is-small is-right"><ion-icon name="logo-rss"></ion-icon></span>
-          </p>
-          {% else %}
-          <p>No tokens created yet.</p>
-          {% endif %}
+    <div class="column">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">Tokens: {{ tokens_count }}</p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            {% if recent_token %}
+            Most recent:<br>
+            <p class="has-text-weight-semibold is-italic">{{ recent_token[1] }}</p>
+            <p class="control has-icons-right">
+              <input class="input" type="text" id="token-{{ recent_token[2] }}"
+                value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=recent_token[2]) }}" readonly>
+              <span class="icon is-small is-right">
+                <ion-icon name="logo-rss"></ion-icon>
+              </span>
+            </p>
+            {% else %}
+            <p>No tokens created yet.</p>
+            {% endif %}
+          </div>
         </div>
       </div>
+      <a class="tile container button is-large is-fullwidth is-hoverable is-info"
+        href="{{ url_for('website.manage_tokens') }}">
+        <p class="subtitle has-text-light">Manage access tokens</p>
+      </a>
     </div>
-    <a class="tile container button is-large is-fullwidth is-hoverable is-info" href="{{ url_for('website.manage_tokens') }}">
-      <p class="subtitle has-text-light">Manage access tokens</p>
-    </a>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}
