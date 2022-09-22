@@ -40,7 +40,7 @@ class NotificationForm(FlaskForm):
     summary = TextAreaField('summary', validators=[DataRequired()])
     content = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Submit')
-@website.route('/manage_notifications', methods=['GET', 'POST'])
+@website.route('/manage/notification', methods=['GET', 'POST'])
 @login_required
 def manage_notifications():
     form = NotificationForm()
@@ -68,7 +68,7 @@ class TokenForm(FlaskForm):
     description = StringField('description', validators=[DataRequired()])
     token = StringField('token', validators=[DataRequired()])
     submit = SubmitField('Submit')
-@website.route('/manage_tokens', methods=['GET', 'POST'])
+@website.route('/manage/token', methods=['GET', 'POST'])
 @login_required
 def manage_tokens():
     form = TokenForm()
@@ -105,7 +105,7 @@ def share():
     resp.headers['Content-Type'] = 'application/xml'
     return resp
 
-@website.route('/delete_token')
+@website.route('/delete/token')
 @login_required
 def delete_token():
     token_id = request.args.get('token_id')
@@ -117,7 +117,7 @@ def delete_token():
             conn.execute(delete(tokens).where(tokens.c.id == token_id))
             return redirect(url_for('website.manage_tokens', success_message=f"Successfully deleted token \"{token_desc}\"."))
 
-@website.route('/delete_notification')
+@website.route('/delete/notification')
 @login_required
 def delete_notification():
     notification_id = request.args.get('notification_id')
