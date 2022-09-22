@@ -40,11 +40,13 @@ class NotificationForm(FlaskForm):
     summary = TextAreaField('summary', validators=[DataRequired()])
     content = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Submit')
-@website.route('/new_notification', methods=['GET', 'POST'])
+@website.route('/manage_notifications', methods=['GET', 'POST'])
 @login_required
-def new_notification():
+def manage_notifications():
     form = NotificationForm()
-    error_message = ""
+    form_error_message = ""
+    with engine.begin() as conn:
+        notifications_ = conn.execute(select(messages).order_by(desc(messages.c.time_created))).all()
     if form.validate_on_submit():
         title = form.data['title']
         summary = form.data['summary']
@@ -54,10 +56,13 @@ def new_notification():
             result = conn.execute(statement.compile())
         return flask.redirect(flask.url_for('website.dashboard'))
     return render_template(
-        'new_notification.html', 
+        'manage_notifications.html', 
         config=current_app.config['WEBSITE'],
         form=form,
-        error_message=error_message)
+        notifications=notifications_,
+        form_error_message=form_error_message,
+        error_message=request.args.get('error_message'),
+        success_message=request.args.get('success_message'))
 
 class TokenForm(FlaskForm):
     description = StringField('description', validators=[DataRequired()])
@@ -100,9 +105,9 @@ def share():
     resp.headers['Content-Type'] = 'application/xml'
     return resp
 
-@website.route('/delete')
+@website.route('/delete_token')
 @login_required
-def delete_():
+def delete_token():
     token_id = request.args.get('token_id')
     with engine.begin() as conn:
         if not conn.execute(select(tokens).filter_by(id=token_id)).first():
@@ -111,3 +116,15 @@ def delete_():
             token_desc = conn.execute(select(tokens).filter_by(id=token_id)).first()[2]
             conn.execute(delete(tokens).where(tokens.c.id == token_id))
             return redirect(url_for('website.manage_tokens', success_message=f"Successfully deleted token \"{token_desc}\"."))
+
+@website.route('/delete_notification')
+@login_required
+def delete_notification():
+    notification_id = request.args.get('notification_id')
+    with engine.begin() as conn:
+        if not conn.execute(select(messages).filter_by(id=notification_id)).first():
+            return redirect(url_for('website.manage_notifications', error_message=f'Invalid Notification id: {notification_id}'))
+        else:
+            notification_title = conn.execute(select(messages).filter_by(id=notification_id)).first()[1]
+            conn.execute(delete(messages).where(messages.c.id == notification_id))
+            return redirect(url_for('website.manage_notifications', success_message=f"Successfully deleted notification \"{notification_title}\"."))
