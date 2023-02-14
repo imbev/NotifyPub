@@ -48,7 +48,7 @@
             <p class="has-text-weight-semibold is-italic">{{ recent_token[1] }}</p>
             <p class="control has-icons-right">
               <input class="input" type="text" id="token-{{ recent_token[2] }}"
-                value="{{ config['base_url'][:-1] }}{{ url_for('website.share', token=recent_token[2]) }}" readonly>
+                value="{{ config['base_url'] }}{{ url_for('website.share', token=recent_token[2]) }}" readonly>
               <span class="icon is-small is-right">
                 <ion-icon name="logo-rss"></ion-icon>
               </span>
