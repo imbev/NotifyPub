@@ -60,11 +60,9 @@
    SECRET_KEY=d5fb8c4fa8bd46638dadc4e751e0d68b
    DATABASE=sqlite:////tmp/notifypub.sqlite
    ```
-
-## Usage
-- Run development server
-  - `make dev`
-- Run production server
-  - `make prod`
+  - Run development server
+    - `make dev`
+  - Run production server
+    - `make prod`
 
 Copyright (c) Isaac Beverly 2022, AGPL-3.0-only
