@@ -3,11 +3,11 @@ name = "notifypub"
 version = "0.1.0"
 description = "Notification Publisher"
 authors = ["Isaac Beverly"]
-license = "AGPL-3.0-only"
+license = "Apache-2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.11"
 Flask = "^2.2.2"
 waitress = "^2.1.2"
 python-dotenv = "^1.0.0"
