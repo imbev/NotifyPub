@@ -1,7 +1,7 @@
 {
 	"name": "notifypub",
 	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
-    "postCreateCommand": "apt-get update && apt-get install -y python3-poetry npm",
+    "postCreateCommand": "apt-get update && apt-get install -y python3-poetry npm postgresql",
 	"remoteUser": "root",
 	"mounts": [
 		"type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh/known_hosts",
