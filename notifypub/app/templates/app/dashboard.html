@@ -1,0 +1,14 @@
+{% extends "app/base.html" %}
+
+{% block main %}
+    <section>
+        <span>Published: #</span>
+        <span>No notifications published yet.</span>
+        <a href="{% url 'app:manage_notifications' %}">Manage published notifications</a>
+    </section>
+    <section>
+        <span>Tokens: #</span>
+        <span>No tokens created yet.</span>
+        <a href="{% url 'app:manage_tokens' %}">Manage access tokens</a>
+    </section>
+{% endblock %}

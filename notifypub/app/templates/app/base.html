@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>{% if page_name %}{{ page_name }} - {% endif %}{{ site_name }}</title>
+</head>
+<body>
+<nav>
+    <a href="{% url 'app:index' %}">Home</a>
+    <a href="{% url 'app:dashboard' %}">Dashboard</a>
+    {% if logged_in %}
+        <a href="{% url 'app:logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'app:login' %}">Login</a>
+    {% endif %}
+</nav>
+<main>
+    {% block main %}
+    {% endblock %}
+</main>
+<footer>
+    NotifyPub by <a href="">Isaac Beverly</a>. The <a href="">source code</a> is licensed <a href="">AGPL-3.0-only</a>.
+</footer>
+</body>
+</html>

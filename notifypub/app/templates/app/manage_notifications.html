@@ -1,0 +1,20 @@
+{% extends "app/base.html" %}
+
+{% block main %}
+    <form>
+        <header>Publish Notification</header>
+        <label for="titleInput">Title</label>
+        <input type="text" id="titleInput" autocomplete="off" required
+               placeholder="Lorem Ipsum"
+        />
+        <label for="summaryInput">Summary</label>
+        <input type="text" id="summaryInput" autocomplete="off" required
+               placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        />
+        <label for="contentInput">Content</label>
+        <input type="text" id="contentInput" autocomplete="off" required
+               placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Risus nec feugiat in fermentum posuere urna nec tincidunt. Rhoncus aenean vel elit scelerisque mauris pellentesque. Proin sed libero enim sed faucibus. Turpis massa tincidunt dui ut ornare lectus sit amet. Mattis enim ut tellus elementum sagittis vitae. In eu mi bibendum neque egestas."
+        />
+        <input type="submit" value="Add Notification"/>
+    </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "app/base.html" %}
+
+{% block main %}
+    <form>
+        <header>Create Access Token</header>
+        <label for="descInput">Description</label>
+        <input type="text" id="descInput" autocomplete="off" required
+               placeholder="Guest #1"
+        />
+        <label for="tokenInput">Access Token</label>
+        <input type="text" id="tokenInput" autocomplete="off" required
+               placeholder="abc123"
+        />
+        <input type="submit" value="Add Notification"/>
+    </form>
+{% endblock %}

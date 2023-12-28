@@ -1,0 +1,11 @@
+{% extends "app/base.html" %}
+
+{% block main %}
+    <header>{{ site_name }}</header>
+    <span>Publish notification messages via the NotifyPub administrator dashboard!</span>
+    <a href="{% url 'app:dashboard' %}">Enter Dashboard</a>
+    <a href="">Source Code</a>
+    <span>Users can use any of the following clients:</span>
+    <a href="">Inoreader</a>
+    <a href="">Feedbro</a>
+{% endblock %}
